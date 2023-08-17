@@ -1,4 +1,4 @@
-```Dart
+```dart
 //함수 
 void func1(int a, int b) {
     print(a+b) ;
