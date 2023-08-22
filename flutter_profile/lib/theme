@@ -1,8 +1,0 @@
-
-import 'package:flutter/material.dart';
-
-ThemeData theme(){
-  return ThemeData(
-    primaryColor:Colors.white, //앱의 브랜드색상
-  )
-}
