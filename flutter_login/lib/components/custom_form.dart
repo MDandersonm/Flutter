@@ -27,7 +27,7 @@ class CustomForm extends StatelessWidget {
               // else if (!isAlphanumeric(value)) {
               //   //알파벳이나 숫자가 아니면
               //   return "이메일에 한글이 들어갈 수 없습니다.";
-              // }//골뱅이도 오류처리하는 문제가 생긴다. 
+              // }//골뱅이도 오류처리하는 문제가 생긴다.
               else {
                 return null;
               }
