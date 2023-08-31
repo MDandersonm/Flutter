@@ -42,13 +42,8 @@ class JoinPage extends StatelessWidget {
             funValidator: validateUsername(),
           ),
           CustomTextFormField(
-            hint: "Password",
-            funValidator: validatePassword()
-          ),
-          CustomTextFormField(
-            hint: "Email",
-            funValidator: validateEmail()
-          ),
+              hint: "Password", funValidator: validatePassword()),
+          CustomTextFormField(hint: "Email", funValidator: validateEmail()),
           CustomElevatedButton(
               text: "회원가입",
               funPageRoute: () {
@@ -56,7 +51,12 @@ class JoinPage extends StatelessWidget {
                   // validate통과 => true
                   Get.to(LoginPage());
                 }
-              })
+              }),
+          TextButton(
+              onPressed: () {
+                Get.to(LoginPage());
+              },
+              child: Text("로그인 페이지로 이동"))
         ],
       ),
     );

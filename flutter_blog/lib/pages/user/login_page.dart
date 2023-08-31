@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_blog/components/custom_elevated_button.dart';
 import 'package:flutter_blog/components/custom_text_from_field.dart';
 import 'package:flutter_blog/pages/post/home_page.dart';
+import 'package:flutter_blog/pages/user/join_page.dart';
 import 'package:flutter_blog/util/validator_util.dart';
 import 'package:get/get.dart';
 
@@ -39,9 +40,7 @@ class LoginPage extends StatelessWidget {
           CustomTextFormField(
               hint: "Username", funValidator: validateUsername()),
           CustomTextFormField(
-            hint: "Password",
-            funValidator: validatePassword(),
-          ),
+              hint: "Password", funValidator: validatePassword()),
           CustomElevatedButton(
               text: "로그인",
               funPageRoute: () {
@@ -49,7 +48,12 @@ class LoginPage extends StatelessWidget {
                   // validate통과 => true
                   Get.to(HomePage());
                 }
-              })
+              }),
+          TextButton(
+              onPressed: () {
+                Get.to(JoinPage());
+              },
+              child: Text("아직 회원가입이 안되어 있나요?"))
         ],
       ),
     );

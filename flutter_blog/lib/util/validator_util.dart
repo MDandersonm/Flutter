@@ -44,3 +44,28 @@ Function validateEmail() {
     }
   };
 }
+Function validateTitle() {
+  return (String? value) {
+    //value엔 내가 적었던 값이 들어 온다
+    if (value!.isEmpty) {
+      return "공백이 들어갈 수 없습니다.";
+    } else if (value.length > 30) {
+      return "제목의 길이를 초과하였습니다.";
+    }else {
+      return null;
+    }
+  };
+}
+
+Function validateContent() {
+  return (String? value) {
+    //value엔 내가 적었던 값이 들어 온다
+    if (value!.isEmpty) {
+      return "공백이 들어갈 수 없습니다.";
+    } else if (value.length > 500) {
+      return "내용의 길이를 초과하였습니다.";
+    }else {
+      return null;
+    }
+  };
+}

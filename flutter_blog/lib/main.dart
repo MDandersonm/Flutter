@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       //라우트설계 필요없음 GetX사용할 예정
-      home:JoinPage(),
+      home:HomePage(),
 
     );
   }
