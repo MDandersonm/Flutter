@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/controller/post_controller.dart';
 import 'package:flutter_blog/controller/user_controller.dart';
+import 'package:flutter_blog/domain/post/post.dart';
 
 import 'package:flutter_blog/size.dart';
 import 'package:flutter_blog/view/pages/post/write_page.dart';
@@ -13,28 +15,30 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // UserController u = Get.put(UserController());//put:없으면 만들고 있으면 찾기
-    UserController u = Get.find(); //put:없으면 만들고 있으면 찾기
+    UserController u = Get.find(); //find: 만들어져있어야함 put:없으면 만들고 있으면 찾기
+    
+    //put될때 , 객체 생성(create),onInit함수 실행 ->객체 초기화함(initialize)
+    PostController p = Get.put(PostController()); //만들고
+    // List <Post> posts = await p.findAll(); //async를 적용못해서 지움
 
     return Scaffold(
       drawer: _navigation(context),
-      appBar: AppBar(
-          title:Text("${u.isLogin}")
-      ),
-      body: ListView.separated(
-        itemCount: 20,
-        itemBuilder: (context, index) {
-          return ListTile(
-            onTap: () {
-              Get.to(DetailPage(index), arguments: "arguments 속성 테스트");
+      appBar: AppBar(title: Text("${u.isLogin}")),
+      body: Obx(() => ListView.separated(
+            itemCount: p.posts.length,
+            itemBuilder: (context, index) {
+              return ListTile(
+                onTap: () {
+                  Get.to(DetailPage(index), arguments: "arguments 속성 테스트");
+                },
+                title: Text("${p.posts[index].title}"),
+                leading: Text("${p.posts[index].id}"),
+              );
             },
-            title: Text("제목1"),
-            leading: Text("1"),
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider();
-        },
-      ),
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
+          )),
     );
   }
 
