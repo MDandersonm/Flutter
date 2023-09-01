@@ -30,7 +30,7 @@ class LoginPage extends StatelessWidget {
               alignment: Alignment.center,
               height: 200,
               child: Text(
-                "Sign in",
+                "Sign in  ${u.isLogin}",
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
               ),
             ),

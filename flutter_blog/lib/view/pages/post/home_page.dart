@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/controller/user_controller.dart';
 
 import 'package:flutter_blog/size.dart';
 import 'package:flutter_blog/view/pages/post/write_page.dart';
@@ -11,15 +12,20 @@ import 'detail_page.dart';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    // UserController u = Get.put(UserController());//put:없으면 만들고 있으면 찾기
+    UserController u = Get.find(); //put:없으면 만들고 있으면 찾기
+
     return Scaffold(
       drawer: _navigation(context),
-      appBar: AppBar(),
+      appBar: AppBar(
+          title:Text("${u.isLogin}")
+      ),
       body: ListView.separated(
         itemCount: 20,
         itemBuilder: (context, index) {
           return ListTile(
             onTap: () {
-              Get.to(DetailPage(index),arguments: "arguments 속성 테스트");
+              Get.to(DetailPage(index), arguments: "arguments 속성 테스트");
             },
             title: Text("제목1"),
             leading: Text("1"),
@@ -33,6 +39,7 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _navigation(BuildContext context) {
+    UserController u = Get.find(); //put:없으면 만들고 있으면 찾기
     return Container(
       width: getDrawerWidth(context),
       height: double.infinity,
@@ -71,6 +78,7 @@ class HomePage extends StatelessWidget {
               Divider(),
               TextButton(
                 onPressed: () {
+                  u.logout();
                   Get.to(LoginPage());
                 },
                 child: Text(
