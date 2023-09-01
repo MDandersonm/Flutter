@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     // UserController u = Get.put(UserController());//put:없으면 만들고 있으면 찾기
     UserController u = Get.find(); //find: 만들어져있어야함 put:없으면 만들고 있으면 찾기
-    
+
     //put될때 , 객체 생성(create),onInit함수 실행 ->객체 초기화함(initialize)
     PostController p = Get.put(PostController()); //만들고
     // List <Post> posts = await p.findAll(); //async를 적용못해서 지움
@@ -29,7 +29,9 @@ class HomePage extends StatelessWidget {
             itemBuilder: (context, index) {
               return ListTile(
                 onTap: () {
-                  Get.to(DetailPage(index), arguments: "arguments 속성 테스트");
+                  p.findById(p.posts[index].id!);//! : null은 절대아님
+                  Get.to(()=> DetailPage(p.posts[index].id),
+                      arguments: "arguments 속성 테스트");
                 },
                 title: Text("${p.posts[index].title}"),
                 leading: Text("${p.posts[index].id}"),

@@ -9,6 +9,19 @@ import 'package:get/get_connect/http/src/response/response.dart';
 class PostRepository {
   final PostProvider _postProvider = PostProvider();
 
+  Future<Post> findById(int id) async {
+    Response response = await _postProvider.findById(id);
+    dynamic body= response.body;
+    dynamic convertBody= convertUtf8ToObject(body);
+    CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
+    if(cmRespDto.code ==1){
+      Post post= Post.fromJson(cmRespDto.data);
+      return post;
+    }else{
+      return Post();
+    }
+  }
+
   Future<List<Post>> findAll() async {
     Response response = await _postProvider.findAll(); //기다렸다가 데이터가 들어옴
     dynamic body = response.body;
@@ -32,15 +45,13 @@ class PostRepository {
       List<Post> posts = temp.map((e) => Post.fromJson(e)).toList();
       print("posts: ${posts}");
       print("posts.length: ${posts.length}");
-      print("posts[0].title: ${posts[0].title}");//이게된다.
-      print("temp[0]: ${temp[0]}");//temp를 그대로사용하면 안되는 이유?
+      print("posts[0].title: ${posts[0].title}"); //이게된다.
+      print("temp[0]: ${temp[0]}"); //temp를 그대로사용하면 안되는 이유?
       // print("temp[0].title: ${temp[0].title}");//이게 안되기 떄문
       return posts;
-    }
-    else{
+    } else {
       // List <Post> hello = []; //빈배열
-      return <Post>[];//빈배열을 리턴
+      return <Post>[]; //빈배열을 리턴
     }
-    
   }
 }
