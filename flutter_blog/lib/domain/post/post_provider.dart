@@ -15,4 +15,7 @@ class PostProvider extends GetConnect {
   Future<Response> deleteById(int id) =>
       delete("$host/post/$id", headers: {"Authorization": jwtToken?? ""});//jwtToken이 null이면 공백으로설정
 //
+  Future<Response> updateById(int id, Map data) =>
+      put("$host/post/$id",data ,headers: {"Authorization": jwtToken?? ""});//jwtToken이 null이면 공백으로설정
+//
 }

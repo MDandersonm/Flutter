@@ -1,7 +1,8 @@
-import 'package:flutter_blog/controller/dto/CMRespDto.dart';
-import 'package:flutter_blog/controller/dto/LoginReqDto.dart';
+
 import 'package:flutter_blog/domain/post/post.dart';
 import 'package:flutter_blog/domain/post/post_provider.dart';
+import 'package:flutter_blog/dto/CMRespDto.dart';
+import 'package:flutter_blog/dto/UpdateReqDto.dart';
 import 'package:flutter_blog/util/convert_utf8.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
@@ -9,10 +10,27 @@ import 'package:get/get_connect/http/src/response/response.dart';
 class PostRepository {
   final PostProvider _postProvider = PostProvider();
 
-  Future<int> deleteById(int id) async{
+  Future<Post> updateById(int id, String title, String content) async {
+    UpdateReqDto updateReqDto = UpdateReqDto(title, content);
+    Response response = await _postProvider.updateById(
+        id, updateReqDto.toJson()); //기다렸다가 데이터가 들어옴
+    dynamic body = response.body;
+    dynamic convertBody = convertUtf8ToObject(body);
+    CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
+    if(cmRespDto.code ==1){
+      print("수정 성공");
+      Post post = Post.fromJson(cmRespDto.data);
+      return post;
+    }else{
+      print("수정실패");
+      return Post();
+    }
+  }
+
+  Future<int> deleteById(int id) async {
     Response response = await _postProvider.deleteById(id);
     dynamic body = response.body;
-    dynamic convertBody= convertUtf8ToObject(body);
+    dynamic convertBody = convertUtf8ToObject(body);
     CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
     // return cmRespDto.code!;//null이 아님을 ! 로 표현
     return cmRespDto.code ?? -1; //null이면 -1로 처리하란말.
@@ -20,13 +38,13 @@ class PostRepository {
 
   Future<Post> findById(int id) async {
     Response response = await _postProvider.findById(id);
-    dynamic body= response.body;
-    dynamic convertBody= convertUtf8ToObject(body);
+    dynamic body = response.body;
+    dynamic convertBody = convertUtf8ToObject(body);
     CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
-    if(cmRespDto.code ==1){
-      Post post= Post.fromJson(cmRespDto.data);
+    if (cmRespDto.code == 1) {
+      Post post = Post.fromJson(cmRespDto.data);
       return post;
-    }else{
+    } else {
       return Post();
     }
   }
