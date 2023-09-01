@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_blog/controller/user_controller.dart';
+import 'package:flutter_blog/domain/user/user.dart';
+import 'package:flutter_blog/domain/user/user_repository.dart';
 
 import 'package:flutter_blog/util/validator_util.dart';
 import 'package:flutter_blog/view/components/custom_elevated_button.dart';
@@ -10,6 +13,10 @@ import 'join_page.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
+  final UserController u = Get.put(UserController());
+
+  final TextEditingController _username = TextEditingController();
+  final TextEditingController _password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -40,15 +47,28 @@ class LoginPage extends StatelessWidget {
       child: Column(
         children: [
           CustomTextFormField(
-              hint: "Username", funValidator: validateUsername()),
+              controller: _username,
+              hint: "Username",
+              funValidator: validateUsername()),
           CustomTextFormField(
-              hint: "Password", funValidator: validatePassword()),
+              controller: _password,
+              hint: "Password",
+              funValidator: validatePassword()),
           CustomElevatedButton(
               text: "로그인",
-              funPageRoute: () {
+              funPageRoute: () async {
                 if (_formKey.currentState!.validate()) {
                   // validate통과 => true
-                  Get.to(HomePage());
+                  // Get.to(HomePage());
+                  String token = await u.login(
+                      _username.text.trim(), _password.text.trim());
+                  if (token != "-1") {
+                    print("토큰 정상적으로 받음");
+                    Get.to(()=>HomePage());
+                  }else{
+                    print("토큰 못받음");
+                    Get.snackbar("로그인 시도", "로그인 실패");//알림창 뜸
+                  }
                 }
               }),
           TextButton(
