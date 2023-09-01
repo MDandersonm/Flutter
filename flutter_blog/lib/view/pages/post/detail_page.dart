@@ -16,6 +16,7 @@ class DetailPage extends StatelessWidget {
     // String data = Get.arguments;//arguments는 dynamic타입 그래서 받을때 타입을 정해주면됨
     UserController u = Get.find();
     PostController p = Get.find();
+    print("로그인한 유저 아이디 u.principal.value.id: ${u.principal.value.id}");
     return Scaffold(
       appBar: AppBar(title: Text("게시글아이디: ${id}, 로그인상태:${u.isLogin} ")),
       body:
@@ -33,23 +34,25 @@ class DetailPage extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 35),
                 ),
                 Divider(),
-                Row(children: [
-                  ElevatedButton(
-                      onPressed: () {
-                        // Get.to(HomePage());//객체를 새로만들어서가는거 (상태관리로 갱신이 가능)
-                        // Get.back();
-                        Get.off(HomePage());
-                      },
-                      child: Text("삭제")),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        Get.to(UpdatePage());
-                      },
-                      child: Text("수정"))
-                ]),
+                u.principal.value.id == p.post.value.user!.id
+                    ? Row(children: [
+                        ElevatedButton(
+                            onPressed: () {
+                              // Get.to(HomePage());//객체를 새로만들어서가는거 (상태관리로 갱신이 가능)
+                              // Get.back();
+                              Get.off(HomePage());
+                            },
+                            child: Text("삭제")),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              Get.to(UpdatePage());
+                            },
+                            child: Text("수정"))
+                      ])
+                    : SizedBox(),
 
                 //SingleChildScrollView는 Expanded로 높이를 줘야 제대로 작동함
                 Expanded(

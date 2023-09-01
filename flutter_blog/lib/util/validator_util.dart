@@ -9,8 +9,8 @@ Function validateUsername() {
       return "유저네임은 알파벳또는 숫자만 가능합니다.";
     } else if (value.length > 12) {
       return "유저네임의 길이를 초과하였습니다.";
-    } else if (value.length < 4) {
-      return "유저네임의 최소 길이는 4자입니다.";
+    } else if (value.length < 3) {
+      return "유저네임의 최소 길이는 3자입니다.";
     } else {
       return null;
     }
