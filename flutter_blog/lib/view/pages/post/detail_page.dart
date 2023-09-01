@@ -37,10 +37,12 @@ class DetailPage extends StatelessWidget {
                 u.principal.value.id == p.post.value.user!.id
                     ? Row(children: [
                         ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // Get.to(HomePage());//객체를 새로만들어서가는거 (상태관리로 갱신이 가능)
                               // Get.back();
-                              Get.off(HomePage());
+                              await p.deleteById(p.post.value.id!);//삭제가 완료되고 homepage로
+                              Get.off(()=> HomePage());
+                              // Get.back();//이것도 가능하다. Obs가 계속 상태를 관찰하고있어서.
                             },
                             child: Text("삭제")),
                         SizedBox(

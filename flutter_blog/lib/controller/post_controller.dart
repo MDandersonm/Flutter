@@ -15,6 +15,17 @@ class PostController extends GetxController {
     findAll();
   } //관찰가능한 변수
 
+  Future<void> deleteById(int id) async {
+    int result = await _postRepository.deleteById(id);
+    if (result == 1) {
+      print(
+          "서버 쪽에서 삭제 성공"); //이상태에서   Get.off(()=> HomePage()); 하면  삭제한거 계속 그대로 보임 갱신이안됨
+      List<Post> result =
+          posts.where((post) => post.id != id).toList(); //filter기능
+      print("result.length :${result.length}");
+      posts.value=result;//갱신시킴!
+    } else {}
+  }
 
   Future<void> findAll() async {
     List<Post> posts = await _postRepository.findAll();
@@ -25,7 +36,4 @@ class PostController extends GetxController {
     Post post = await _postRepository.findById(id);
     this.post.value = post;
   }
-
-
 }
-

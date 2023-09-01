@@ -9,6 +9,15 @@ import 'package:get/get_connect/http/src/response/response.dart';
 class PostRepository {
   final PostProvider _postProvider = PostProvider();
 
+  Future<int> deleteById(int id) async{
+    Response response = await _postProvider.deleteById(id);
+    dynamic body = response.body;
+    dynamic convertBody= convertUtf8ToObject(body);
+    CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
+    // return cmRespDto.code!;//null이 아님을 ! 로 표현
+    return cmRespDto.code ?? -1; //null이면 -1로 처리하란말.
+  }
+
   Future<Post> findById(int id) async {
     Response response = await _postProvider.findById(id);
     dynamic body= response.body;
