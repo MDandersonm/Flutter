@@ -1,15 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blog/controller/user_controller.dart';
-import 'package:flutter_blog/domain/user/user.dart';
-import 'package:flutter_blog/domain/user/user_repository.dart';
+import 'package:flutter_blog/components/custom_elevated_button.dart';
+import 'package:flutter_blog/components/custom_text_from_field.dart';
+import 'package:flutter_blog/domain/user/user_controller.dart';
 
 import 'package:flutter_blog/util/validator_util.dart';
-import 'package:flutter_blog/view/components/custom_elevated_button.dart';
-import 'package:flutter_blog/view/components/custom_text_from_field.dart';
-import 'package:flutter_blog/view/pages/post/home_page.dart';
+
+import 'package:flutter_blog/domain/post/pages/home_page.dart';
 import 'package:get/get.dart';
 
-import 'join_page.dart';
+import '../../../domain/user/pages/join_page.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blog/controller/post_controller.dart';
-import 'package:flutter_blog/controller/user_controller.dart';
-import 'package:flutter_blog/view/pages/post/update_page.dart';
+import 'package:flutter_blog/domain/post/post_controller.dart';
+import 'package:flutter_blog/domain/user/user_controller.dart';
+import 'package:flutter_blog/domain/post/pages/update_page.dart';
 import 'package:get/get.dart';
 
 import 'home_page.dart';
@@ -50,7 +50,7 @@ class DetailPage extends StatelessWidget {
                         ),
                         ElevatedButton(
                             onPressed: () {
-                              Get.to(UpdatePage());
+                              Get.to(()=>UpdatePage(),arguments: "글을 여기에가져가는방법과 생성자에가져가는방법이있다.");
                             },
                             child: Text("수정"))
                       ])

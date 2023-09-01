@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_blog/controller/post_controller.dart';
-import 'package:flutter_blog/controller/user_controller.dart';
+import 'package:flutter_blog/domain/post/post_controller.dart';
+import 'package:flutter_blog/domain/user/pages/login_page.dart';
+import 'package:flutter_blog/domain/user/user_controller.dart';
 import 'package:flutter_blog/domain/post/post.dart';
 
 import 'package:flutter_blog/size.dart';
-import 'package:flutter_blog/view/pages/post/write_page.dart';
-import 'package:flutter_blog/view/pages/user/login_page.dart';
-import 'package:flutter_blog/view/pages/user/user_info.dart';
+import 'package:flutter_blog/domain/post/pages/write_page.dart';
+
+import 'package:flutter_blog/domain/user/pages/user_info.dart';
 import 'package:get/get.dart';
 
 import 'detail_page.dart';

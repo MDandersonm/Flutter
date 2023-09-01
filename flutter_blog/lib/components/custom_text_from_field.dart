@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 class CustomTextFormField extends StatelessWidget {
   final String hint;
   final funValidator;
-  final String? value;
+  // final String? value;//controller와 value를 동시에 못써서 지움
   final controller;
 
   const CustomTextFormField(
       {required this.hint,
       required this.funValidator,
-      this.value,
+      // this.value,//controller와 value를 동시에 못써서 지움
       this.controller});
 
   @override
@@ -18,7 +18,7 @@ class CustomTextFormField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       child: TextFormField(
         controller: controller,//null도 받을수있는타입이어서 오류가 안남
-        initialValue: value, //업데이트할때 기본값 받아오려고 씀
+        // initialValue: value, //업데이트할때 기본값 받아오려고 씀//controller와 value를 동시에 못써서 지움
         validator: funValidator,
         obscureText: hint == "Password" ? true : false,
         decoration: InputDecoration(
