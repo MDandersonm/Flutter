@@ -14,7 +14,7 @@ import 'detail_page.dart';
 
 class HomePage extends StatelessWidget {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
-
+  var scaffoldKey= GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     // UserController u = Get.put(UserController());//put:없으면 만들고 있으면 찾기
@@ -26,6 +26,18 @@ class HomePage extends StatelessWidget {
     // List <Post> posts = await p.findAll(); //async를 적용못해서 지움
 
     return Scaffold(
+      key:scaffoldKey,
+      floatingActionButton: FloatingActionButton(
+        onPressed: (){
+          if(scaffoldKey.currentState!.isDrawerOpen){
+            scaffoldKey.currentState!.openEndDrawer();
+          }else{
+            scaffoldKey.currentState!.openDrawer();
+
+          }
+        },
+        child: Icon(Icons.code),
+      ),
       drawer: _navigation(context),
       appBar: AppBar(title: Text("${u.isLogin}")),
       body: Obx(() => RefreshIndicator(//서버데이터가 갱신된 것을 화면에 새로고침으로 갱신 적용가능
@@ -69,7 +81,7 @@ class HomePage extends StatelessWidget {
             children: [
               TextButton(
                 onPressed: () {
-                  Get.to(WritePage());
+                  Get.to(()=>WritePage());
                 },
                 child: Text(
                   "글쓰기",
@@ -82,7 +94,9 @@ class HomePage extends StatelessWidget {
               Divider(),
               TextButton(
                 onPressed: () {
-                  Get.to(UserInfo());
+                  // Navigator.pop(context);//제일 위에 쌓여있는것을 날린다.(이게 있어야 뒤로가기했을때 draw창이 안뜬다.)
+                  scaffoldKey.currentState!.openEndDrawer();//이렇게 해줄수 있다.
+                  Get.to(()=>UserInfo());
                 },
                 child: Text(
                   "회원정보보기",
@@ -96,7 +110,7 @@ class HomePage extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   u.logout();
-                  Get.to(LoginPage());
+                  Get.to(()=>LoginPage());
                 },
                 child: Text(
                   "로그아웃",
