@@ -7,36 +7,45 @@ import 'package:flutter_blog/util/validator_util.dart';
 
 import 'package:get/get.dart';
 
+import '../post_controller.dart';
 import 'home_page.dart';
 
 class WritePage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _title = TextEditingController();
+  final TextEditingController _content = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    // final PostController p = Get.find();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Form(
               key: _formKey,
-              child: ListView(
-                  children: [
-                    CustomTextFormField(
-                        hint: "Title", funValidator: validateTitle()),
-                    CustomTextArea(
-                        hint: "Content", funValidator: validateContent()),
-                    CustomElevatedButton(
-                        text: "글쓰기",
-                        funPageRoute: () {
-                          if (_formKey.currentState!.validate()) {
-                            // validate통과 => true
-                            Get.off(HomePage());
-                          }
-                        })
-                  ]))
+              child: ListView(children: [
+                CustomTextFormField(
+                    controller: _title,
+                    hint: "Title",
+                    funValidator: validateTitle()),
+                CustomTextArea(
+                    controller: _content,
+                    hint: "Content",
+                    funValidator: validateContent()),
+                CustomElevatedButton(
+                    text: "글쓰기",
+                    funPageRoute: () async{
+                      if (_formKey.currentState!.validate()) {
+                        // validate통과 => true
+                        // await p.writeBlog(_title.text, _content.text);//아래처럼 한줄로 쓸수도있다.
+                        await Get.find<PostController>().writeBlog(_title.text, _content.text);
 
-      ),
+                        Get.off(()=> HomePage());
+                      }
+                    })
+              ]))),
     );
   }
 }

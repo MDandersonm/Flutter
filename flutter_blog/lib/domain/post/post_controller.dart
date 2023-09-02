@@ -14,6 +14,22 @@ class PostController extends GetxController {
     print("안녕?");
     findAll();
   } //관찰가능한 변수
+  Future<void> writeBlog(String title, String content) async{
+    Post post= await _postRepository.writeBlog(title, content);
+    if(post.id !=null){
+
+      //방법1
+      // this.post.value= post;
+      //homepage로 왔을때 제목을 갱신시켜줘야함(posts갱신필요)
+      // this.posts.value = [...this.posts.value , post];
+      //posts에 있는 값들을 순회하면서  기존의 e를 빼고 방금 수정한 id와 같으면 수정된post를 넣고 나머지는 e로 리스트를 만듦.
+
+      //방법2
+      this.posts.add(post);
+    }
+
+  }
+
 
   Future<void> updateById(int id,String title, String content) async{
     Post post= await _postRepository.updateById(id, title, content);

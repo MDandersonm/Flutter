@@ -1,8 +1,7 @@
-
 import 'package:flutter_blog/domain/post/post.dart';
 import 'package:flutter_blog/domain/post/post_provider.dart';
 import 'package:flutter_blog/dto/CMRespDto.dart';
-import 'package:flutter_blog/dto/UpdateReqDto.dart';
+import 'package:flutter_blog/dto/WriteOrUpdateReqDto.dart';
 import 'package:flutter_blog/util/convert_utf8.dart';
 import 'package:get/get_connect/http/src/response/response.dart';
 
@@ -10,18 +9,35 @@ import 'package:get/get_connect/http/src/response/response.dart';
 class PostRepository {
   final PostProvider _postProvider = PostProvider();
 
+  Future<Post> writeBlog(String title, String content) async {
+    WriteOrUpdateReqDto writeReqDto = WriteOrUpdateReqDto(title, content);
+    Response response =
+        await _postProvider.writeBlog(writeReqDto.toJson()); //기다렸다가 데이터가 들어옴
+    dynamic body = response.body;
+    dynamic convertBody = convertUtf8ToObject(body);
+    CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
+    if (cmRespDto.code == 1) {
+      print("글쓰기 성공");
+      Post post = Post.fromJson(cmRespDto.data);
+      return post;
+    } else {
+      print("글쓰기 실패");
+      return Post();
+    }
+  }
+
   Future<Post> updateById(int id, String title, String content) async {
-    UpdateReqDto updateReqDto = UpdateReqDto(title, content);
+    WriteOrUpdateReqDto updateReqDto = WriteOrUpdateReqDto(title, content);
     Response response = await _postProvider.updateById(
         id, updateReqDto.toJson()); //기다렸다가 데이터가 들어옴
     dynamic body = response.body;
     dynamic convertBody = convertUtf8ToObject(body);
     CMRespDto cmRespDto = CMRespDto.fromJson(convertBody);
-    if(cmRespDto.code ==1){
+    if (cmRespDto.code == 1) {
       print("수정 성공");
       Post post = Post.fromJson(cmRespDto.data);
       return post;
-    }else{
+    } else {
       print("수정실패");
       return Post();
     }
