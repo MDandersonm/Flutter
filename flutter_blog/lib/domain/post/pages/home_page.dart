@@ -39,7 +39,7 @@ class HomePage extends StatelessWidget {
         child: Icon(Icons.code),
       ),
       drawer: _navigation(context),
-      appBar: AppBar(title: Text("${u.isLogin}")),
+      appBar: AppBar(title: Text("Blog")),//${u.isLogin}
       body: Obx(() => RefreshIndicator(//서버데이터가 갱신된 것을 화면에 새로고침으로 갱신 적용가능
             key: refreshKey,
             onRefresh: () async {

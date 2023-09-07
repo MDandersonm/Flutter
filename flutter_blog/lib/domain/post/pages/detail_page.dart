@@ -18,7 +18,7 @@ class DetailPage extends StatelessWidget {
     PostController p = Get.find();
     print("로그인한 유저 아이디 u.principal.value.id: ${u.principal.value.id}");
     return Scaffold(
-      appBar: AppBar(title: Text("게시글아이디: ${id}, 로그인상태:${u.isLogin} ")),
+      appBar: AppBar(title: Text("글 번호: ${id} ")), //로그인상태:${u.isLogin}
       body:
           // Center(
           // child: Text("Detail page $id $data"),//데이터를 넘기는 두가지 방법이있다 생성자로넘기는방법, get.arguments를 쓰는방법
